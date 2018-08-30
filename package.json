@@ -1,0 +1,25 @@
+{
+  "name": "table-storage-demo",
+  "version": "1.0.0",
+  "description": "Azure table storage demo",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Electric-Vine",
+  "license": "ISC",
+  "engines": {
+    "node": ">=8.11.1"
+  },
+  "dependencies": {
+    "azure-mobile-apps": "^4.0.1",
+    "azure-storage": "^2.8.2",
+    "body-parser": "^1.18.2",
+    "eslint": "^4.19.1",
+    "express": "^4.16.3",
+    "node-uuid": "^1.4.8",
+    "sqlite3": "^4.0.0",
+    "swagger-jsdoc": "^1.9.7",
+    "swagger-ui-express": "^3.0.8"
+  }
+}

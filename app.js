@@ -15,7 +15,7 @@ const fs = require('fs'),
     process.env.EMULATED = !process.env.AZURE_STORAGE_ACCOUNT, 
     port = process.env.port || 443,
     apiRouter = require('./routes/root');
-
+    
 //Swagger configuration
 var def = {
     info:{

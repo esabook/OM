@@ -7,28 +7,23 @@ class comment extends schema{
         //index
         partitionKey, rowKey, 
         //content
-        content, created_by, created_by_name, tags){
+        content, created_by, tags){
         
             //Assigning
-            super(tableName, partitionKey, rowKey, undefined, undefined)
+            super(tableName, partitionKey, rowKey, created_by)
             this.Content = content;
-            this.Created_by = created_by;
-            this.Created_by_name = created_by_name;
-            this.Created_date = new Date().toISOString();
             this.Tags = tags;
     }
 
     /**
      * Entity Descriptor for table transaction
      */
-    getEntityDecriptor(){
+    getEntityDescriptor(){
         var commentEntity = {
             PartitionKey:   this.db.entityGen.String(this.PartitionKey),
             RowKey:         this.db.entityGen.String(this.RowKey),
             Content:        this.db.entityGen.String(this.Content),
             Created_by:     this.db.entityGen.String(this.Created_by),
-            Created_by_name:this.db.entityGen.String(this.Created_by_name),
-            Created_date:   this.db.entityGen.DateTime(this.Created_date),
             Tags:           this.db.entityGen.String(this.Tags),
         };
         return commentEntity;

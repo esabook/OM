@@ -58,8 +58,32 @@ exports.user_delete = function(req, res, next){
                 ! error))
     })
 }
-
 /**
+ * @swagger
+ * /user/:user_id/update (TODO CREATE GENERATOR):
+ *  post:
+ *      description: Deleting user account
+ *      produces:
+ *              - application/json
+ *      parameters:
+ *              - name: user_id
+ *                description: for now is as ==> username
+ *                required: true
+ *                type: string
+ * 
+ *              - name: profile
+ *                description: this is key:value for storing multiple user info in single name may account info of `canopy`, `azure`, `email`, etc.
+ *                type: string
+ *                in: formData
+ * 
+ *              - name: roles
+ *                description: role for user access identity
+ *                in: formData
+ *      responses:
+ *              200:
+ *                description: updated / not
+ *              
+ *
  * update user by param of path => `user_id`
  * @param {*} req 
  * @param {*} res 

@@ -2,16 +2,17 @@ var _db_ = require('../utils/db');
 var options = {payloadFormat: "application/json;odata=nometadata"}; //_db_.storage.TableUtilities.PayloadFormat.NO_METADATA;
 
 class basic_scheme {
-    constructor(tablename, partitionKey = '', rowKey = '', created={Date:new Date().toISOString(),By:'SYSTEM'}, modified={Date:'',By:''}) {
-        this.TableName = tablename,
+    constructor(tablename, partitionKey = '', rowKey, created_by = 'SYSTEM',  modified_date = '', modified_by = '') {
+        this.TableName      = tablename;
         //built-in
-        this.PartitionKey = partitionKey ? String(partitionKey) : '',
-        this.RowKey = rowKey ? String(rowKey) : new _db_.guidGenerator().GUID,
+        this.PartitionKey   = partitionKey ? String(partitionKey) : '';
+        this.RowKey         = rowKey ? String(rowKey) : new _db_.guidGenerator().GUID;
         //basic
-        this.Created = created ? JSON.stringify(created):null,
-        this.Modified = modified ? JSON.stringify(modified):null,
+        this.Created_by     = created_by;
+        this.Modified_date  = modified_date;
+        this.Modified_by    = modified_by;
         
-        this.db = _db_
+        this.db             = _db_;
     }
 
      /**
@@ -42,7 +43,7 @@ class basic_scheme {
      * get single data
      * @param {*} callbackFuntion (`error`, `result`, `response`)
      */
-    retrive( partitionKey=null, rowKey , callbackFuntion ){
+    retrive( partitionKey = this.PartitionKey, rowKey = this.RowKey , callbackFuntion ){
         this.db.storageClient.retrieveEntity(this.TableName, partitionKey, rowKey, options, callbackFuntion )
     }
 

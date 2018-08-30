@@ -1,49 +1,71 @@
+var schema      = require('./basic_shema');
+var counter     = require('../models/counter');
 
-var schema = require('./basic_shema')
-var tableName = 'ticket';
+var tableName   = 'ticket';
+
 class ticket extends schema{
     constructor(
         //index
-        partitionKey = null, rowKey=null, 
+        partitionKey, rowKey, uid = 0,
         //content
-        assigned_to = null, title=null, content=null, priority=null, infos=null, status='New', type, category,
+        assigned_to, title, subject, issue, priority, status = "New", type, category, tags,
         //basic data
-        created = {Date:new Date().toISOString(), By:'SYSTEM'}, modified = undefined){
-        
+        created_by, modified_by, modified_date){
             //Assigning
-            super(tableName, partitionKey, rowKey, created, modified)
-            this.Assigned_to = assigned_to;
-            this.Title = title;
-            this.Content = content;
-            this.Infos = infos;
-            this.Priority = priority
-            this.Status = status;
-            this.Type = type;
-            this.Category = category;
-    }
+            super(tableName, partitionKey, rowKey, created_by, modified_date, modified_by);
+            this.UID            = uid;
+            this.Assigned_to    = assigned_to;
+            this.Title          = title;
+            this.Subject        = subject;
+            this.Issue          = issue;
+            this.Priority       = priority;
+            this.Status         = status;
+            this.Type           = type;
+            this.Category       = category;
+            this.Tags           = tags;
+    };
+
+
+    /**
+     * UID generator
+     * 
+     * return `result`
+     */
+    getEntityDescriptorWithNewUID(callback = (objectModel, result)=>{}){
+        var Counter        = new counter(tableName, 'UID');
+       Counter.retrive(undefined, undefined, (error, result, response)=>{
+           this.UID = response.body.lastUID + 1;
+           callback (Counter, this.getEntityDescriptor());
+        });
+    };
+
 
     /**
      * Entity Descriptor for table transaction
      */
-    getEntityDecriptor(){
+    getEntityDescriptor(){
         var ticketEntity = {
             PartitionKey:   this.db.entityGen.String(this.PartitionKey),
             RowKey:         this.db.entityGen.String(this.RowKey),
-            Title:          this.db.entityGen.String(this.Title),
-            Created:        this.db.entityGen.String(this.Created),
-            Modified:       this.db.entityGen.String(this.Modified),
+            UID:            this.db.entityGen.Int64(this.UID),
+            Created_by:     this.db.entityGen.String(this.Created_by),
+            Modified_date:  this.db.entityGen.String(this.Modified_date),
+            Modified_by:    this.db.entityGen.String(this.Modified_by),
+
             Assigned_to :   this.db.entityGen.String(this.Assigned_to),
-            Content :       this.db.entityGen.String(this.Content),
-            Status:         this.db.entityGen.String(this.Status),
-            Infos :         this.db.entityGen.String(this.Infos),
+            Title:          this.db.entityGen.String(this.Title),
+            Subject:        this.db.entityGen.String(this.Subject),
+            Issue :         this.db.entityGen.String(this.Issue),
             Priority :      this.db.entityGen.String(this.Priority),
+            Status:         this.db.entityGen.String(this.Status),
             Type:           this.db.entityGen.String(this.Type),
-            Category:       this.db.entityGen.String(this.Category)
+            Category:       this.db.entityGen.String(this.Category),
+            Tags:           this.db.entityGen.String(this.Tags),
         };
         return ticketEntity;
-    }
+    };   
 
-    
-}
+   
+};
 
 module.exports = ticket;

@@ -13,13 +13,13 @@ class user extends schema{
      * Entity Descriptor for table transaction
      */
     getEntityDecriptor(){
-        var customerEntity = {
+        var userEntity = {
             PartitionKey: this.db.entityGen.String(this.PartitionKey),
             RowKey:this.db.entityGen.String(this.RowKey),
             Profile: this.db.entityGen.String(this.Profile),
             Roles: this.db.entityGen.String(this.Roles)
         };
-        return customerEntity;
+        return userEntity;
     }
 
     

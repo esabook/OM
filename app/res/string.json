@@ -1,0 +1,14 @@
+{
+    "rootAPI":"/api",
+    "helpPage":"/help",
+    "your-session-has-time-out":"Session time out",
+    "login":"Login",
+    "ticket":"Ticket",
+    "requested-data-not-found":"Requested data not found",
+    "accessing-data-rejected":"Request was rejected due for permission",
+    "e40x":"API not found",
+    "e50x":"Server error",
+    "successfully-deleted":"Sucessfully deleted",
+    "successfully-updated":"Successfully updated",
+    "invalid-request":"Invalid request data"
+}
